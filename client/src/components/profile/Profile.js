@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getProfileByUserId } from '../../actions/profile';
+import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
+import ProfileExperience from './ProfileExperience';
 //import Spinner or loading bar
 
 const Profile = ({
@@ -31,7 +34,25 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
-          {console.log(profile)}
+          <div className="profile-grid my-1">
+            <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+            <div class="profile-exp bg-white p-2">
+              <h2 class="text-primary">Experience</h2>
+              {profile.experience.length > 0 ? (
+                <Fragment>
+                  {profile.experience.map(experience => (
+                    <ProfileExperience
+                      key={experience._id}
+                      experience={experience}
+                    />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No experience credentials</h4>
+              )}
+            </div>
+          </div>
         </Fragment>
       )}
     </Fragment>
