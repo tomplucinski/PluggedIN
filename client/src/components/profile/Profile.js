@@ -6,6 +6,8 @@ import { getProfileByUserId } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import ProfileExperience from './ProfileExperience';
+import ProfileEducation from './ProfileEducation';
+// import ProfileGithub from './ProfileGithub';
 //import Spinner or loading bar
 
 const Profile = ({
@@ -52,6 +54,25 @@ const Profile = ({
                 <h4>No experience credentials</h4>
               )}
             </div>
+
+            <div class="profile-edu bg-white p-2">
+              <h2 class="text-primary">Experience</h2>
+              {profile.education.length > 0 ? (
+                <Fragment>
+                  {profile.education.map(education => (
+                    <ProfileEducation
+                      key={education._id}
+                      education={education}
+                    />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No education credentials</h4>
+              )}
+            </div>
+            {/* {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )} */}
           </div>
         </Fragment>
       )}
