@@ -9,7 +9,6 @@ import {
   GET_ALL_PROFILES,
 } from './types';
 
-// Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
     const { data } = await axios.get('/api/profile/me');
@@ -26,7 +25,6 @@ export const getCurrentProfile = () => async dispatch => {
   }
 };
 
-// Get all profiles
 export const getAllProfiles = () => async dispatch => {
   dispatch({ type: CLEAR_PROFILE });
   try {
@@ -44,7 +42,6 @@ export const getAllProfiles = () => async dispatch => {
   }
 };
 
-// Get profile by userId
 export const getProfileByUserId = userId => async dispatch => {
   try {
     const { data } = await axios.get(`/api/profile/user/${userId}`);
@@ -61,7 +58,6 @@ export const getProfileByUserId = userId => async dispatch => {
   }
 };
 
-// Create or update profile
 export const createProfile = (
   formData,
   history,
@@ -100,7 +96,6 @@ export const createProfile = (
   }
 };
 
-// Add experience
 export const addExperience = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -137,7 +132,6 @@ export const addExperience = (formData, history) => async dispatch => {
   }
 };
 
-// Add education
 export const addEducation = (formData, history) => async dispatch => {
   try {
     const config = {
@@ -174,7 +168,6 @@ export const addEducation = (formData, history) => async dispatch => {
   }
 };
 
-// Delete experience
 export const deleteExperience = id => async dispatch => {
   try {
     const { data } = await axios.delete(`/api/profile/experience/${id}`);
@@ -193,7 +186,6 @@ export const deleteExperience = id => async dispatch => {
   }
 };
 
-// Delete education
 export const deleteEducation = id => async dispatch => {
   try {
     const { data } = await axios.delete(`/api/profile/education/${id}`);
@@ -212,7 +204,6 @@ export const deleteEducation = id => async dispatch => {
   }
 };
 
-// Delete account and profile
 export const deleteAccount = () => async dispatch => {
   if (window.confirm('Are you sure?')) {
     try {

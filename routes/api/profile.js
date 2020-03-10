@@ -63,7 +63,6 @@ router.post(
       linkedin,
     } = req.body;
 
-    // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
@@ -76,7 +75,6 @@ router.post(
       profileFields.skills = skills.split(',').map(skill => skill.trim());
     }
 
-    // Build social object
     profileFields.social = {};
     if (youtube) profileFields.social.youtube = youtube;
     if (facebook) profileFields.social.facebook = facebook;
@@ -88,7 +86,6 @@ router.post(
       let profile = await Profile.findOne({ user: req.user.id });
 
       if (profile) {
-        // Update
         profile = await Profile.findOneAndUpdate(
           { user: req.user.id },
           { $set: profileFields },
@@ -98,7 +95,6 @@ router.post(
         return res.json(profile);
       }
 
-      // Create
       profile = new Profile(profileFields);
       await profile.save();
       res.json(profile);
@@ -155,9 +151,8 @@ router.get('/user/:user_id', async (req, res) => {
 // @access  Private
 router.delete('/', auth, async (req, res) => {
   try {
-    // Remove user posts
     await Post.deleteMany({ user: req.user.id });
-    // Remove profile
+
     await Profile.findOneAndRemove({ user: req.user.id });
 
     await User.findOneAndRemove({ _id: req.user.id });

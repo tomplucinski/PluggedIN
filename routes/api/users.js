@@ -14,7 +14,6 @@ const User = require('../../models/User');
 router.post(
   '/',
   [
-    // User fields validation
     check('name', 'Name is required')
       .not()
       .isEmpty(),
@@ -25,7 +24,6 @@ router.post(
     ).isLength({ min: 6 }),
   ],
   async (req, res) => {
-    // Create errors block and send error if fields are empty
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -36,7 +34,6 @@ router.post(
     try {
       let user = await User.findOne({ email });
 
-      // Check is user already exists
       if (user) {
         return res
           .status(400)
@@ -56,11 +53,9 @@ router.post(
         password,
       });
 
-      // Encrypt user password
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
 
-      // Save user to database
       await user.save();
 
       const payload = {

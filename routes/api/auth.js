@@ -28,7 +28,6 @@ router.post(
     check('password', 'password is required').exists(),
   ],
   async (req, res) => {
-    // Create errors block and send error if fields are empty
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -39,7 +38,6 @@ router.post(
     try {
       let user = await User.findOne({ email });
 
-      // Check is user already exists
       if (!user) {
         return res
           .status(400)
